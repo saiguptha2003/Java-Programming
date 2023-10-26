@@ -59,10 +59,20 @@ def get_dull_students(numberOfSubjects, file_path):
 
 ```
 
+## finds the mean of perticular column
+
 ```python
 
 sub_2_mean=dataset['sub-2'].mean()
 
 ```
+## code snippet combines two DataFrames based on the columns in below_mean_sub_1, keeps only the rows unique to below_mean_sub_1 (i.e., those that didn't have a match in below_mean_all_subjects), and removes the temporary _merge column, resulting in a DataFrame named unique_students_sub_1 that contains students who are below average in sub-1 but not in the other subjects.
 
-## finds the mean of perticular column
+
+
+
+
+```python
+            unique_students_sub_1= below_mean_sub_1.merge(below_mean_all_subjects, on=list(below_mean_sub_1.columns), how='left', indicator=True).query('_merge == "left_only"').drop(columns=['_merge'])
+
+```
