@@ -1,78 +1,105 @@
-# Python Files Showcase
-
-This repository contains a collection of Python files that demonstrate various programming concepts and techniques.
-
-# Code for Identifying Dull Students
-
-This code is designed to identify and categorize students who are performing below average in their subjects and calculate the percentage they need to improve to reach the average.
-
-## Usage
-
-1. Ensure you have Python and the necessary libraries (e.g., pandas) installed.
-2. Call the `get_dull_students` function with the desired number of subjects and the path to your CSV file containing student marks data.
-3. The function will return information about students who are performing below average in their subjects.
-
-
-```python
-import pandas as pd
-
-# Function to calculate the percentage needed to improve above average
-def getPercentageToImproveAboveAverage(average, marks):
-    return 100 * ((average / marks) - 1)
-```
-
-# Function to identify dull students
-```python
-def get_dull_students(numberOfSubjects, file_path):
-    ub_1_mean=dataset['sub-1'].mean()
-            sub_2_mean=dataset['sub-2'].mean()
-            sub_3_mean=dataset['sub-3'].mean()
-            sub_4_mean=dataset['sub-4'].mean()
-            sub_5_mean=dataset['sub-5'].mean()
-            sub_6_mean=dataset['sub-6'].mean()
-            below_mean_all_subjects=dataset[(dataset['sub-1'] < sub_1_mean) & (dataset['sub-2'] < sub_2_mean) & (dataset['sub-3'] < sub_3_mean) & (dataset['sub-4'] < sub_4_mean) & (dataset['sub-5'] < sub_5_mean) & (dataset['sub-6'] < sub_6_mean)]
-            below_mean_sub_1=dataset[(dataset['sub-1'] < sub_1_mean)]
-            below_mean_sub_2=dataset[(dataset['sub-2'] < sub_2_mean)]
-            below_mean_sub_3=dataset[(dataset['sub-3'] < sub_3_mean)]
-            below_mean_sub_4=dataset[(dataset['sub-4'] < sub_4_mean)]
-            below_mean_sub_5=dataset[(dataset['sub-5'] < sub_5_mean)]
-            below_mean_sub_6=dataset[(dataset['sub-6'] < sub_6_mean)]
-            unique_students_sub_1= below_mean_sub_1.merge(below_mean_all_subjects, on=list(below_mean_sub_1.columns), how='left', indicator=True).query('_merge == "left_only"').drop(columns=['_merge'])
-            unique_students_sub_2= below_mean_sub_2.merge(below_mean_all_subjects, on=list(below_mean_sub_2.columns), how='left', indicator=True).query('_merge == "left_only"').drop(columns=['_merge'])
-            unique_students_sub_3= below_mean_sub_3.merge(below_mean_all_subjects, on=list(below_mean_sub_3.columns), how='left', indicator=True).query('_merge == "left_only"').drop(columns=['_merge'])
-            unique_students_sub_4= below_mean_sub_4.merge(below_mean_all_subjects, on=list(below_mean_sub_4.columns), how='left', indicator=True).query('_merge == "left_only"').drop(columns=['_merge'])
-            unique_students_sub_5= below_mean_sub_5.merge(below_mean_all_subjects, on=list(below_mean_sub_5.columns), how='left', indicator=True).query('_merge == "left_only"').drop(columns=['_merge'])
-            unique_students_sub_6= below_mean_sub_6.merge(below_mean_all_subjects, on=list(below_mean_sub_6.columns), how='left', indicator=True).query('_merge == "left_only"').drop(columns=['_merge'])
-            unique_students_sub_1=unique_students_sub_1.drop(['sub-2','sub-3','sub-4','sub-5','sub-6'], axis=1)
-            unique_students_sub_2=unique_students_sub_2.drop(['sub-1','sub-3','sub-4','sub-5','sub-6'], axis=1)
-            unique_students_sub_3=unique_students_sub_3.drop(['sub-1','sub-2','sub-4','sub-5','sub-6'], axis=1)
-            unique_students_sub_4=unique_students_sub_4.drop(['sub-1','sub-2','sub-3','sub-5','sub-6'], axis=1)
-            unique_students_sub_5=unique_students_sub_5.drop(['sub-1','sub-2','sub-3','sub-4','sub-6'], axis=1)
-            unique_students_sub_6=unique_students_sub_6.drop(['sub-1','sub-2','sub-3','sub-4','sub-5'], axis=1)
-            unique_students_sub_1['percentage to increase']=unique_students_sub_1.apply(lambda x: getPercentageToImproveAboveAverage(sub_1_mean,x['sub-1']), axis=1)
-            unique_students_sub_2['percentage to increase']=unique_students_sub_2.apply(lambda x: getPercentageToImproveAboveAverage(sub_1_mean,x['sub-2']), axis=1)
-            unique_students_sub_3['percentage to increase']=unique_students_sub_3.apply(lambda x: getPercentageToImproveAboveAverage(sub_1_mean,x['sub-3']), axis=1)
-            unique_students_sub_4['percentage to increase']=unique_students_sub_4.apply(lambda x: getPercentageToImproveAboveAverage(sub_1_mean,x['sub-4']), axis=1)
-            unique_students_sub_5['percentage to increase']=unique_students_sub_5.apply(lambda x: getPercentageToImproveAboveAverage(sub_1_mean,x['sub-5']), axis=1)
-            unique_students_sub_6['percentage to increase']=unique_students_sub_6.apply(lambda x: getPercentageToImproveAboveAverage(sub_1_mean,x['sub-6']), axis=1)
-            return (below_mean_all_subjects,unique_students_sub_1,unique_students_sub_2,unique_students_sub_3,unique_students_sub_4,unique_students_sub_5,unique_students_sub_6,sub_1_mean,sub_2_mean,sub_3_mean,sub_4_mean,sub_5_mean,sub_6_mean)
-
-```
-
-## finds the mean of perticular column
-
-```python
-
-sub_2_mean=dataset['sub-2'].mean()
-
-```
-## code snippet combines two DataFrames based on the columns in below_mean_sub_1, keeps only the rows unique to below_mean_sub_1 (i.e., those that didn't have a match in below_mean_all_subjects), and removes the temporary _merge column, resulting in a DataFrame named unique_students_sub_1 that contains students who are below average in sub-1 but not in the other subjects.
-
-
-
-
-
-```python
-            unique_students_sub_1= below_mean_sub_1.merge(below_mean_all_subjects, on=list(below_mean_sub_1.columns), how='left', indicator=True).query('_merge == "left_only"').drop(columns=['_merge'])
-
-```
+<style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite .c { color: #008800; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #FF0000 } /* Error */
+.codehilite .k { color: #AA22FF; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666666 } /* Operator */
+.codehilite .ch { color: #008800; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #008800 } /* Comment.Preproc */
+.codehilite .cpf { color: #008800; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #008800; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #008800; font-weight: bold } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .gr { color: #FF0000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #00A000 } /* Generic.Inserted */
+.codehilite .go { color: #888888 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #0044DD } /* Generic.Traceback */
+.codehilite .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #AA22FF } /* Keyword.Pseudo */
+.codehilite .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+.codehilite .m { color: #666666 } /* Literal.Number */
+.codehilite .s { color: #BB4444 } /* Literal.String */
+.codehilite .na { color: #BB4444 } /* Name.Attribute */
+.codehilite .nb { color: #AA22FF } /* Name.Builtin */
+.codehilite .nc { color: #0000FF } /* Name.Class */
+.codehilite .no { color: #880000 } /* Name.Constant */
+.codehilite .nd { color: #AA22FF } /* Name.Decorator */
+.codehilite .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00A000 } /* Name.Function */
+.codehilite .nl { color: #A0A000 } /* Name.Label */
+.codehilite .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #B8860B } /* Name.Variable */
+.codehilite .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #bbbbbb } /* Text.Whitespace */
+.codehilite .mb { color: #666666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BB4444 } /* Literal.String.Affix */
+.codehilite .sb { color: #BB4444 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BB4444 } /* Literal.String.Char */
+.codehilite .dl { color: #BB4444 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BB4444 } /* Literal.String.Double */
+.codehilite .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BB4444 } /* Literal.String.Heredoc */
+.codehilite .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #BB6688 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BB4444 } /* Literal.String.Single */
+.codehilite .ss { color: #B8860B } /* Literal.String.Symbol */
+.codehilite .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00A000 } /* Name.Function.Magic */
+.codehilite .vc { color: #B8860B } /* Name.Variable.Class */
+.codehilite .vg { color: #B8860B } /* Name.Variable.Global */
+.codehilite .vi { color: #B8860B } /* Name.Variable.Instance */
+.codehilite .vm { color: #B8860B } /* Name.Variable.Magic */
+.codehilite .il { color: #666666 } /* Literal.Number.Integer.Long */</style><p>When choosing colors for a student e-learning portal, it's important to consider factors like readability, accessibility, and the psychological impact of colors. Here are some colors, along with their hexadecimal (hex) values, that you can consider:</p>
+<p>Background Color:</p>
+<p>Light Gray: #f5f5f5
+Light Blue: #e1f5fe
+Soft Beige: #faf3e0
+Text Color:</p>
+<p>Dark Gray: #333333
+Black: #000000
+Navy Blue: #000080
+Accent Color (for buttons, links, and highlights):</p>
+<p>Teal: #009688
+Orange: #ff5722
+Purple: #673ab7
+Header and Navigation:</p>
+<p>Deep Blue: #1976D2
+Dark Green: #388e3c
+Crimson: #dc3545
+Call-to-Action (CTA) Color:</p>
+<p>Green: #4caf50
+Red: #ff0000
+Yellow: #ffeb3b
+Interactive Elements:</p>
+<p>Cyan: #00bcd4
+Indigo: #3f51b5
+Pink: #e91e63
+Background for Interactive Content:</p>
+<p>White: #ffffff
+Off-White: #f9f9f9
+Ivory: #fffff0
+Neutral Colors (for borders and separators):</p>
+<p>Light Gray: #d3d3d3
+Silver: #c0c0c0
+Dark Gray: #808080</p>
